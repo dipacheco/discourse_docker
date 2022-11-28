@@ -1,7 +1,7 @@
 # This template installs MariaDB and all dependencies needed for importing from flarum.
 
 params:
-  home: /var/discourse
+  home: /var/www/discourse
 
 hooks:
   after_web_config:
