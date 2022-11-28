@@ -103,9 +103,3 @@ hooks:
         cmd:
           - mkdir -p /shared/import/data
           - chown discourse -R /shared/import
-
-  after_bundle_exec:
-    - exec:
-        cd: $home
-        cmd:
-          - su discourse -c 'bundle install --no-deployment --without test --without development --path vendor/bundle'
