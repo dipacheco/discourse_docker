@@ -43,7 +43,7 @@ hooks:
     - exec:
         cmd:
           - mkdir -p /shared/import/mysql/data
-          - apt update && apt install -y mariadb-server mariadb-client libmariadb-dev
+          - apt update && apt install -y nano mariadb-server mariadb-client libmariadb-dev
           - sed -Ei 's/^log/#&/' /etc/mysql/my.cnf
 
     - file:
@@ -96,19 +96,10 @@ hooks:
           cd $home
           echo "The flarum import is starting..."
           echo
-          su discourse -c 'bundle exec ruby script/import_scripts/flarum_import.rb'
+          su discourse -c 'EXPORT=1 bundle exec ruby script/import_scripts/flarum_import.rb'
 
     - exec:
         cd: $home
         cmd:
           - mkdir -p /shared/import/data
-          - chown discourse -R /shared/import
-          
-after_bundle_exec:
-    - exec:
-        cd: $home
-        cmd:
-          - echo "gem 'mysql2'" >> Gemfile
-          - apt update && DEBIAN_FRONTEND=noninteractive apt install -y mariadb-server mariadb-client libmariadb-dev
-          - su discourse -c 'bundle config unset deployment'
-          - su discourse -c 'bundle install --no-deployment --path vendor/bundle --jobs 4 --without test development'     
+          - chown discourse -R /shared/import     
