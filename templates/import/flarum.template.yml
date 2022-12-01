@@ -86,7 +86,7 @@ hooks:
               echo "Loading database dump into MySQL..."
               mysql -uroot -e "DROP DATABASE IF EXISTS flarum_db"
               mysql -uroot -e "CREATE DATABASE flarum_db"
-              mysqldump -u root -p flarum_db < /shared/import/data/flarum_mysql.sql
+              mysql -u root -p flarum_db < /shared/import/data/flarum_mysql.sql
               sha256sum /shared/import/data/flarum_mysql.sql > /shared/import/mysql/imported
             fi
           else
