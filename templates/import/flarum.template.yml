@@ -52,6 +52,7 @@ hooks:
         contents: |
           #!/bin/bash
           # Make sure the datadir exists, is accessible and contains all system tables
+          mkdir -p /run/mysqld
           mkdir -p /shared/import/mysql/data
           chown mysql -R /shared/import/mysql/data
           /usr/bin/mysql_install_db --user=mysql
