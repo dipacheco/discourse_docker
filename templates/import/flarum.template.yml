@@ -52,7 +52,7 @@ hooks:
         contents: |
           #!/bin/bash
           # Make sure the datadir exists, is accessible and contains all system tables
-          mkdir -p /run/mysqld
+          mkdir -p /run/mysqld && chown mysql -R /run/mysqld
           mkdir -p /shared/import/mysql/data
           chown mysql -R /shared/import/mysql/data
           /usr/bin/mysql_install_db --user=mysql
@@ -109,4 +109,5 @@ after_bundle_exec:
     - exec:
         cd: $home
         cmd:
-          - su discourse -c 'EXPORT=1 bundle install --no-deployment --without test --without development --path vendor/bundle'
+          - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libmariadb-dev
+          - su discourse -c 'EXPORT=1 bundle install'
