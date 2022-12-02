@@ -110,4 +110,5 @@ after_bundle_exec:
         cd: $home
         cmd:
           - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libmariadb-dev
+          - su discourse -c 'bundle config unset deployment'
           - su discourse -c 'EXPORT=1 bundle install'
